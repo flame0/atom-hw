@@ -1,0 +1,48 @@
+schema:
+    - name: title
+      description: Заголовок
+      required: true
+      type: string
+    - name: state
+      description: Статус выполнения
+      required: true
+      type: string
+      enum:
+          - in_progress
+          - ready
+    - name: estimate
+      description: Срок выполнения
+      required: true
+      type: date
+      format: YYYY-MM-DD
+dataset:
+    - - Заказать книги
+      - ready
+      - 2017-03-12
+    - - Записаться на python-митап
+      - in_progress
+      - 2017-03-25
+    - - Починить подтекающий кран
+      - in_progress
+      - 2015-06-18
+    - - Сделать домашнее задание
+      - in_progress
+      - 2017-04-05
+    - - Повесить картину
+      - ready
+      - 2016-12-30
+    - - Позвонить в деканат
+      - in_progress
+      - 2017-04-10
+    - - Дописать курсовую работу
+      - in_progress
+      - 2017-06-01
+    - - Выбросить мусор
+      - in_progress
+      - 2017-03-28
+    - - Купить билеты в Таиланд
+      - in_progress
+      - 2017-06-04
+    - - Опубликовать резюме
+      - in_progress
+      - 2017-05-24
