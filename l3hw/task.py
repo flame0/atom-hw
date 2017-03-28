@@ -50,7 +50,9 @@ class Task:
     remaining = property(_remaining)
     is_failed = property(_is_failed)
 
+
 class Roadmap:
+
     def __init__(self, tasks=[]):
         self.tasks = tasks
 
