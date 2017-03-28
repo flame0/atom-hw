@@ -2,17 +2,20 @@ from datetime import date, datetime, timedelta
 
 class Task:
     states = frozenset(["in_progress", "ready"])
-
+    state=property()
     def __init__(self, title, estimate, state="in_progress"):
-        self.title = title
+    	assert type(title) is str, "title is not a string: %r" % name
+    	assert type(estimate) is date, "estimate is not a date: %r" % estimate
+    	assert type(state) is str, "state is not a str: %r" % state
         self.estimate = estimate
-        if state in self.states:
-            self.state = state
-        else:
-            raise ValueError('Unexpected state')
+        self.state = state            
 
     def __repr__(self):
         return "<{}:{} - {}>".format(self.title, self.state, self.estimate)
+
+    def _state(self,val):
+    	assert val in self.states, "state is not in states list"
+    	self.state = val
 
     def _remaining(self):
         """Remains until expiration of the deadline"""
