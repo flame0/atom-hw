@@ -1,48 +1,10 @@
-from yaml import load
+import os
+import sys
+sys.path.append(os.path.dirname(os.getcwd()))
 from urllib.parse import parse_qs
 from wsgiref.simple_server import make_server
-from datetime import timedelta, date
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
-
-def get_dataset(filename):
-    '''
-    Iterator for dataset's items
-    :param filename: Path to dataset's file
-    :type filename: str
-    :return: Dataset's items
-    :raises OSError: if has problem with file
-    :raises yaml.YAMLError: if has problem with format
-    :raises ValueError: if has problem with content
-    '''
-    with open(filename, 'rt', encoding='utf-8') as input:
-        package = load(input, Loader=Loader)
-        dataset = package.get('dataset')
-        if not isinstance(dataset, list):
-            raise ValueError('wrong format')
-        yield from dataset
-
-
-def simple_wsgi_application(environment, start_response_callback):
-    '''
-    :param environment: Контекст окружения
-    :type environment: dict
-
-    :param start_response_callback: Обработчик запроса
-    :type start_response_callback: callable
-
-    :return: Тело ответа
-    :rtype: iterable
-    '''
-    response_headers = [
-        ('Content-type', 'text/html; charset=utf-8'),
-    ]
-    start_response_callback('200 OK', response_headers)
-    return [
-        b'Hello, WSGI-World!',
-    ]
+from L4HW.parser import get_dataset
+from l3hw.task import Roadmap, Task
 
 
 class WSGIApplication(object):
@@ -70,13 +32,15 @@ class WSGIApplication(object):
 
     def __iter__(self):
         self.start_response('200 OK', self.default_headers)
-        greetings=""
+        tasks = []
         for data in get_dataset("dataset.yml"):
-        	if (data[2]- date.today()<timedelta(3)) and data[2] =='in_pogress' :
-        		greetings+="<li><b>{}</b>({}) - <date>{}</date></li>".format(data[0],data[1],data[2])            
+            tasks.append(Task(data[0], data[2], data[1]))
+        road = Roadmap(tasks)
+        greetings = ""
+        for task in road.crit():
+            greetings += "<li><b>{}</b>({}) - <date>{}</date></li>".format(
+                task.title, task.state, task.estimate)
         yield greetings.encode('utf-8')
-
 
 http_server = make_server('127.0.0.1', 9090, WSGIApplication)
 http_server.handle_request()
-

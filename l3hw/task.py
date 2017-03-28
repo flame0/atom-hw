@@ -1,21 +1,33 @@
 from datetime import date, datetime, timedelta
 
+
 class Task:
     states = frozenset(["in_progress", "ready"])
-    state=property()
+
     def __init__(self, title, estimate, state="in_progress"):
-    	assert type(title) is str, "title is not a string: %r" % name
-    	assert type(estimate) is date, "estimate is not a date: %r" % estimate
-    	assert type(state) is str, "state is not a str: %r" % state
+        _state = None
+        assert type(title) is str, "title is not a string: %r" % title
+        assert type(estimate) is date, "estimate is not a date: %r" % estimate
+        assert type(state) is str, "state is not a str: %r" % state
+        self.title = title
         self.estimate = estimate
-        self.state = state            
+        self.state = state
 
     def __repr__(self):
         return "<{}:{} - {}>".format(self.title, self.state, self.estimate)
 
-    def _state(self,val):
-    	assert val in self.states, "state is not in states list"
-    	self.state = val
+    @property
+    def state(self):
+        return self._state
+
+    @state.setter
+    def state(self, val):
+        assert val in self.states, "state is not in states list"
+        self._state = val
+
+    @state.deleter
+    def state(self):
+        del self._state
 
     def _remaining(self):
         """Remains until expiration of the deadline"""
@@ -43,9 +55,13 @@ class Roadmap:
         self.tasks = tasks
 
     def filter(self, state):
-        return [task for task in tasks if task.state == state]
+        return [task for task in self.tasks if task.state == state]
+
+    def crit(self):
+        """ Print Crit tasks """
+        return [task for task in self.tasks if task.estimate - date.today() < timedelta(3) and task.state == "in_progress"]
 
     def _today(self):
         """ return list of tasks where task estimate == today"""
-        return [task for task in tasks if task.estimate == date.today()]
+        return [task for task in self.tasks if task.estimate == date.today()]
     today = property(_today)
