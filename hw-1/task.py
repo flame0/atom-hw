@@ -5,16 +5,30 @@ class Task:
     states = frozenset(["in_progress", "ready"])
 
     def __init__(self, title, estimate, state="in_progress"):
-        _state = None
-        assert type(title) is str, "title is not a string: %r" % title
-        assert type(estimate) is date, "estimate is not a date: %r" % estimate
-        assert type(state) is str, "state is not a str: %r" % state
         self.title = title
         self.estimate = estimate
         self.state = state
 
     def __repr__(self):
         return "<{}:{} - {}>".format(self.title, self.state, self.estimate)
+
+    @property
+    def title(self):
+        return self._title
+
+    @title.setter
+    def title(self, val):
+        assert type(val) is str, "title is not a string: %r" % val
+        self._title = val
+
+    @property
+    def estimate(self):
+        return self._estimate
+
+    @estimate.setter
+    def estimate(self, val):
+        assert type(val) is date, "estimate is not a date: %r" % val
+        self._estimate = val
 
     @property
     def state(self):
@@ -25,18 +39,15 @@ class Task:
         assert val in self.states, "state is not in states list"
         self._state = val
 
-    @state.deleter
-    def state(self):
-        del self._state
 
-    def _remaining(self):
+    def remaining(self):
         """Remains until expiration of the deadline"""
         if self.state == "in_progress":
             return self.estimate - date.today()
         else:
             return timedelta(0)
 
-    def _is_failed(self):
+    def is_failed(self):
         """return true if task is failed"""
         if self.state == "in_progress" and self.estimate < date.today():
             return True
@@ -46,9 +57,6 @@ class Task:
     def ready(self):
         """change state to ready"""
         self.state = "ready"
-
-    remaining = property(_remaining)
-    is_failed = property(_is_failed)
 
 
 class Roadmap:
@@ -61,7 +69,7 @@ class Roadmap:
 
     def crit(self):
         """ Print Crit tasks """
-        return [task for task in self.tasks if task.remaining <= timedelta(days=3) and task.state == "in_progress"]
+        return [task for task in self.tasks if task.remaining() <= timedelta(days=3) and task.state == "in_progress"]
 
     def _today(self):
         """ return list of tasks where task estimate == today"""
@@ -92,6 +100,7 @@ def __main():
     for task in road.tasks:
         if task.is_failed:
             print("Title:{} Estimate:{} State:{}".format(task.title, task.estimate, task.state))
+
 
 if __name__ == "__main__":
     __main()
