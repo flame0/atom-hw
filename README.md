@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/flame0/atom-hw.svg?branch=master)](https://travis-ci.org/flame0/atom-hw)
+[![Coverage Status](https://coveralls.io/repos/github/flame0/atom-hw/badge.svg?branch=master)](https://coveralls.io/github/flame0/atom-hw?branch=master)
 # Домашнее задание к лекции №3 (L3HW)
 
 Реализовать класс **Task** (задача), содержащий:
