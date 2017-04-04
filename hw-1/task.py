@@ -69,7 +69,7 @@ class Roadmap:
 
     def crit(self):
         """ Print Crit tasks """
-        return [task for task in self.tasks if task.remaining() <= timedelta(days=3) and task.state == "in_progress"]
+        return [task for task in self.tasks if task.remaining() <= timedelta(days=3) and task.remaining() >= timedelta(0) and task.state == "in_progress"]
 
     def _today(self):
         """ return list of tasks where task estimate == today"""
