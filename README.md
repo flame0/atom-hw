@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/flame0/atom-hw.svg?branch=master)](https://travis-ci.org/flame0/atom-hw)
 # Домашнее задание к лекции №3 (L3HW)
 
 Реализовать класс **Task** (задача), содержащий:
