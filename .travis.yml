@@ -5,4 +5,6 @@ python:
 # command to install dependencies
 install: "pip install -r requirements.txt"
 # command to run tests
-script: "python hw1/task.py"
+script: "coverage hw1/task.py"
+after_success:
+  - coveralls
