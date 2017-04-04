@@ -3,8 +3,8 @@ import sys
 sys.path.append(os.path.dirname(os.getcwd()))
 from urllib.parse import parse_qs
 from wsgiref.simple_server import make_server
-from L4HW.parser import get_dataset
-from l3hw.task import Roadmap, Task
+from hw2.parser import get_dataset
+from hw1.task import Roadmap, Task
 
 
 class WSGIApplication(object):
