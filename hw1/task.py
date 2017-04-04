@@ -39,7 +39,7 @@ class Task:
         assert val in self.states, "state is not in states list"
         self._state = val
 
-
+    @property
     def remaining(self):
         """Remains until expiration of the deadline"""
         if self.state == "in_progress":
@@ -47,6 +47,7 @@ class Task:
         else:
             return timedelta(0)
 
+    @property
     def is_failed(self):
         """return true if task is failed"""
         if self.state == "in_progress" and self.estimate < date.today():
@@ -69,12 +70,13 @@ class Roadmap:
 
     def crit(self):
         """ Print Crit tasks """
-        return [task for task in self.tasks if task.remaining() <= timedelta(days=3) and task.remaining() >= timedelta(0) and task.state == "in_progress"]
+        return [task for task in self.tasks if task.remaining <= timedelta(days=3) and task.remaining() >= timedelta(0) and task.state == "in_progress"]
 
-    def _today(self):
+    @property
+    def today(self):
         """ return list of tasks where task estimate == today"""
         return [task for task in self.tasks if task.estimate == date.today()]
-    today = property(_today)
+
 
 
 def __main():
