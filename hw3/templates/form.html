@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test Form for Task</title>
+</head>
+<body>
+	<h1>New task</h1>
+	<form action="" method="POST">
+		<div class="field">
+            {{ form.title.errors }}
+            <label for="id_subject">Title:</label>
+            {{ form.title }}
+        </div>
+        <div class="field">
+            {{ form.state.errors }}
+            <label for="id_email">State:</label>
+            {{ form.state }}
+        </div>
+        <div class="field">
+            {{ form.estimate.errors }}
+            <label for="id_message">Estimate:</label>
+            {{ form.estimate }}
+        </div>
+        <div class="field">
+            {{ form.roadmap.errors }}
+            <label for="id_message">Roadmap:</label>
+            {{ form.roadmap }}
+        </div>
+		{% csrf_token %}
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>
