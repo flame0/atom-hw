@@ -23,7 +23,7 @@ class Task(models.Model):
 	]
 
 	title = models.CharField(max_length=100)
-	state = models.CharField(max_length=12, choices = STATE_CHOICES)
+	state = models.CharField(max_length=12, choices = STATE_CHOICES, default='in_progress')
 	estimate = models.DateField()
 	roadmap = models.ForeignKey(Roadmap, on_delete=models.CASCADE)
 
@@ -42,6 +42,13 @@ class Task(models.Model):
 			return True
 		else:
 			return False
+
+	@property
+	def is_crit(self):
+		if self.remaining <= timedelta(days=3) or self.is_failed:
+			return True
+		else:
+			return False	
 
 	def __str__(self):
 		return self.title

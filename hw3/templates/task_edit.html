@@ -4,29 +4,31 @@
 	<title>Test Form for Task</title>
 </head>
 <body>
-	<h1>New task</h1>
+	<h1>{{ action }} task</h1>
     {% if msg %}
         {{ msg }}
     {% endif %}
 	<form action="" method="POST">
 		<div class="field">
             {{ form.title.errors }}
-            <label for="id_subject">Title:</label>
+            <label for="id_title">Title:</label>
             {{ form.title }}
         </div>
-        <div class="field">
-            {{ form.state.errors }}
-            <label for="id_email">State:</label>
-            {{ form.state }}
-        </div>
+        {#{% if action == "Update" %} #}
+            <div class="field">
+                {{ form.state.errors }}
+                <label for="id_state">State:</label>
+                {{ form.state }}
+            </div>
+        {# {% endif %} #}
         <div class="field">
             {{ form.estimate.errors }}
-            <label for="id_message">Estimate:</label>
+            <label for="id_estimate">Estimate:</label>
             {{ form.estimate }}
         </div>
         <div class="field">
             {{ form.roadmap.errors }}
-            <label for="id_message">Roadmap:</label>
+            <label for="id_roadmap">Roadmap:</label>
             {{ form.roadmap }}
         </div>
 		{% csrf_token %}

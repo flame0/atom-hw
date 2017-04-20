@@ -19,5 +19,7 @@ from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^task_form/$', views.task_form),
+    url(r'^task/(?P<pk>\d+)/$', views.task_detail, name='task'),
+    url(r'^task/new/$', views.task_new),
+    url(r'^task/(?P<pk>\d+)/edit/$', views.task_update, name='task_edit'),
 ]
