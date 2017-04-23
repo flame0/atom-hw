@@ -45,7 +45,7 @@ class Task(models.Model):
 
 	@property
 	def is_crit(self):
-		if self.remaining <= timedelta(days=3) or self.is_failed:
+		if self.remaining <= timedelta(days=3) and self.state == 'in_progress' or self.is_failed:
 			return True
 		else:
 			return False	

@@ -14,13 +14,13 @@
             <label for="id_title">Title:</label>
             {{ form.title }}
         </div>
-        {#{% if action == "Update" %} #}
+        {% if action == "Update" %} 
             <div class="field">
                 {{ form.state.errors }}
                 <label for="id_state">State:</label>
                 {{ form.state }}
             </div>
-        {# {% endif %} #}
+        {% endif %} 
         <div class="field">
             {{ form.estimate.errors }}
             <label for="id_estimate">Estimate:</label>

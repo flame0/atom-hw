@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Task list</title>
+</head>
+<body>
+	<h1>Task list for {{ roadmap.name }}</h1>
+	<p><a href="{% url 'task_new' %}">Create new task</a></p>
+	<ul>
+	{% for task in tasks %}
+			<li>
+				<p><h3><a href="{% url 'task' pk=task.pk %}">{{ task.title }}</a></h3></p>
+				<p><a href="{% url 'task_edit' pk=task.pk %}">Edit task</a></p>
+				<p><a href="{% url 'task_delete' pk=task.pk %}">Delete Task</a></p>
+			</li>
+			<hr>
+	{% endfor %}
+	</ul>
+    
+
+</body>
+</html>
