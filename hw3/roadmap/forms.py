@@ -6,7 +6,7 @@ from datetime import date, time
 class TaskForm(ModelForm):
 	class Meta:
 		model = Task
-		fields = ['title', 'estimate', 'roadmap']
+		fields = ['title', 'estimate'] #minus roadmap
 		widgets = {
 			'estimate': SelectDateWidget(years=range(2000,2050)),
 		}
@@ -20,7 +20,7 @@ class TaskForm(ModelForm):
 class TaskEditForm(ModelForm):
 	class Meta:
 		model = Task
-		fields = ['title', 'state', 'estimate', 'roadmap']
+		fields = ['title', 'state', 'estimate'] #minus roadmap
 		widgets = {
 			'estimate': SelectDateWidget(years=range(2000,2050)),
 		}

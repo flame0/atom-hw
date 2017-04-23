@@ -26,11 +26,7 @@
             <label for="id_estimate">Estimate:</label>
             {{ form.estimate }}
         </div>
-        <div class="field">
-            {{ form.roadmap.errors }}
-            <label for="id_roadmap">Roadmap:</label>
-            {{ form.roadmap }}
-        </div>
+
 		{% csrf_token %}
 		<input type="submit" value="Submit">
 	</form>

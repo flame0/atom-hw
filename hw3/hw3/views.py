@@ -8,12 +8,15 @@ def task_detail(request, pk):
 	task = get_object_or_404(Task, pk=pk)
 	return render(request, 'task.html', {'task': task})
 
-def task_new(request):
+def task_new(request, pk):
 	action = 'New'
+	roadmap = get_object_or_404(Roadmap, pk=pk)
 	if request.method =='POST':
 		form = TaskForm(request.POST)
 		if form.is_valid():
-			task = form.save() #post?
+			task = form.save(commit=False)
+			task.roadmap = roadmap
+			task.save() 
 			return redirect('task', pk = task.pk)
 	else:
 		form = TaskForm()
