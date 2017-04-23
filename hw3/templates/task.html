@@ -9,9 +9,10 @@
     <p>Task estimate: {{ task.estimate }} </p>
     <p>Task state: {{ task.state }} </p>
     <p>Task estimate: {{ task.estimate }} </p> 
-    <p>Task roadmap: {{ task.roadmap }} </p>
 
-    <a href="{% url 'task_edit' pk=task.pk  %}">Edit task</a>
+    <a href="{% url 'task_edit' pk=task.pk %}">Edit task</a>
+    <hr>
+
 
 </body>
 </html>

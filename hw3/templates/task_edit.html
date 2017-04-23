@@ -14,23 +14,19 @@
             <label for="id_title">Title:</label>
             {{ form.title }}
         </div>
-        {#{% if action == "Update" %} #}
+        {% if action == "Update" %} 
             <div class="field">
                 {{ form.state.errors }}
                 <label for="id_state">State:</label>
                 {{ form.state }}
             </div>
-        {# {% endif %} #}
+        {% endif %} 
         <div class="field">
             {{ form.estimate.errors }}
             <label for="id_estimate">Estimate:</label>
             {{ form.estimate }}
         </div>
-        <div class="field">
-            {{ form.roadmap.errors }}
-            <label for="id_roadmap">Roadmap:</label>
-            {{ form.roadmap }}
-        </div>
+
 		{% csrf_token %}
 		<input type="submit" value="Submit">
 	</form>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New Roadmap</title>
+</head>
+<body>
+	<h1>New Roadmap</h1>
+
+	<form action="" method="POST">
+		<div class="field">
+            {{ form.name.errors }}
+            <label for="id_name">Name:</label>
+            {{ form.name }}
+        </div>
+		{% csrf_token %}
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>
