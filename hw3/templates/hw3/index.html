@@ -1,0 +1,65 @@
+ {% extends "../main.html" %}
+{%block title%}Task tracker for techatom{%endblock%}
+ {% block content%}   <div class="col-md-12">
+
+      <div class="start-title col-md-12" id="about">
+        <div class="jumbotron col-md-6 col-md-offset-3">
+        	<h2>Техноатом Домашнее Задание</h2>
+        	<p class="lead">Данный проект содержит домашнее задание №3-4</p>
+        	<div class="text-center">
+					<div class="btn-group">
+					  <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>Roadmap
+					    <span class="caret"></span>
+					    
+					    <span class="sr-only">Toggle Dropdown</span>
+					  </button>
+					  <ul class="dropdown-menu">
+					    <li><a href="{%url 'roadmap:roadmap_new' %}">Новый roadmap</a></li>
+					    <li><a href="{%url 'roadmap:roadmaps' %}">Список roadmap</a></li>
+					  </ul>
+					</div>
+			</div>
+     	 </div>
+      </div>
+		
+		<div class="contact" id="contact">
+			<div class="col-md-3 col-md-offset-3 profile text-center">
+				<div class="panel panel-info">
+  					<div class="panel-heading">
+  						<div class="name">
+							<h3>Андрей Ли</h3>
+						</div>
+					</div>
+					<div class="panel-body">
+					    <div class="photo">
+					        <a href="https://atom.mail.ru/profile/a.li/" target="_blank"><img src="https://habrastorage.org/getpro/moikrug/uploads/user/100/011/806/5/avatar/medium_9f360c5ab7736510df54c882e9dbf188.jpeg" alt="photo of andrew lee" class="src"></a>
+					    </div>
+					    <div class="link">
+					        <a class="btn btn-success" href="https://github.com/flame0/" target="_blank">github.com/flame0</a>
+					    </div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 profile text-center">
+			<div class="panel panel-info">
+  					<div class="panel-heading">
+  						<div class="name">
+							<h3>Виктор Леденев</h3>
+						</div>
+					</div>
+					<div class="panel-body">
+					    <div class="photo">
+							<a href="https://atom.mail.ru/profile/vi.ledenyov/" target="_blank"><img src="https://avatars1.githubusercontent.com/u/17030168?v=3&s=460" width=200 alt="photo of victor" class="src"></a>
+						</div>
+					    <div class="link">
+							
+							<a  class="btn btn-success" href="https://github.com/roachsc4/" target="_blank">github.com/roachsc4</a>
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+		</div>
+    </div><!-- /.container -->
+{% endblock %}

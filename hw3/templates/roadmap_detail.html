@@ -1,24 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Task list</title>
-</head>
-<body>
-	<h1>Task list for {{ roadmap.name }}</h1>
-	<p><a href="{% url 'task_new' pk=roadmap.pk %}">Create new task</a></p>
-	<ul>
-	{% for task in tasks %}
-			<li>
-				<p><h3><a href="{% url 'task' pk=task.pk %}">{{ task.title }}</a></h3></p>
-				<p>State: {{ task.state }}</p>
-				<p>Estimate: {{ task.estimate }}</p>
-				<p><a href="{% url 'task_edit' pk=task.pk %}">Edit task</a></p>
-				<p><a href="{% url 'task_delete' pk=task.pk %}">Delete Task</a></p>
-			</li>
-			<hr>
-	{% endfor %}
-	</ul>
-    
-
-</body>
-</html>
+{% extends "main.html" %} {%block title%}Roadmap`s tasks{% endblock %} 
+{%block content%}
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                <h3>Вы действительно хотите удалить этот task?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
+                <a class="btn btn-danger btn-ok">Да</a>
+            </div>
+        </div>
+    </div>
+</div><div class="wrapper">
+    <div class="row col-md-offset-2 col-md-8">
+        <h1>Task list for {{ roadmap.name }}</h1>
+        <p><a class='btn btn-primary' href="{% url 'roadmap:task_new' pk=roadmap.pk %}">Create new task</a></p>
+        <div class="table-responsive ">
+        	<table class="table table-hover">
+        		{% for task in tasks %}
+	            <tr class='row {%if task.is_crit %}danger{% endif %}{% if task.state == "ready" %}success{% endif %}'>
+	                <td class='col-md-4'>
+	                    <a href="{% url 'roadmap:task' pk=task.pk %}">{{ task.title }}</a></td>
+	                <td class='col-md-2'>{{ task.state }}</td>
+	                <td class='col-md-2'>{{ task.estimate }}</td>
+	                <td class='col-md-2'><a  data-href="{% url 'roadmap:task_delete' pk=task.pk %}" data-toggle="modal" data-target="#confirm-delete" href="#">Delete task</a></td>
+	                <td class='col-md-2'>
+	                <a href="{% url 'roadmap:task_edit' pk=task.pk %}">Edit task</a></td>
+	            </tr>
+         		{% endfor %}
+        	</table>
+		</div>
+    </div>
+</div>
+<script>$('#confirm-delete').on('show.bs.modal', function(e) {
+    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+});</script>
+{% endblock %}

@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Task {{ task.pk }}</title>
-</head>
-<body>
-	<h1{%if task.is_crit %} style="color:red;"{%endif%}>{{ task.title }}</h1>
+{% extends "main.html" %} {%block title%}task {{task.pk}}{% endblock %} 
+{%block content%}
+<div class="wrapper">
+    <div class="row col-md-offset-2 col-md-8">
+		<h1{%if task.is_crit %} style="color:red;"{%endif%}>{{ task.title }}</h1>
 
-    <p>Task estimate: {{ task.estimate }} </p>
-    <p>Task state: {{ task.state }} </p>
-    <p>Task estimate: {{ task.estimate }} </p> 
+	    <p>Task estimate: {{ task.estimate }} </p>
+	    <p>Task state: {{ task.state }} </p>
+	    <p>Task estimate: {{ task.estimate }} </p> 
 
-    <a href="{% url 'task_edit' pk=task.pk %}">Edit task</a>
-    <hr>
-
-
-</body>
-</html>
+	    <a href="{% url 'roadmap:task_edit' pk=task.pk %}">Edit task</a>
+	</div>
+</div>	
+</div>
+{% endblock %}

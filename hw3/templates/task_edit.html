@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Test Form for Task</title>
-</head>
-<body>
+{% extends "main.html" %} {%block title%}task update{% endblock %} 
+{%block content%}
+<div class="wrapper">
+    <div class="row col-md-offset-2 col-md-8">
 	<h1>{{ action }} task</h1>
     {% if msg %}
         {{ msg }}
@@ -30,5 +28,6 @@
 		{% csrf_token %}
 		<input type="submit" value="Submit">
 	</form>
-</body>
-</html>
+    </div>  
+</div>
+{% endblock %}
