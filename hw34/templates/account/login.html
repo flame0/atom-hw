@@ -1,0 +1,102 @@
+{% extends "main.html" %} {%block title%}Регистрация {{task.pk}}{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="row" style="margin-top:20px">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+		<form role="form" method="post">
+			<fieldset>
+				<h2>Вход в личный кабинет</h2>
+				<hr class="colorgraph">
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">{{ error }}</div>{% endfor %}
+
+				<div class="form-group">
+                    {% for error in form.username.errors %}{{ error }}{% endfor %}
+                    <input type="text"  name="{{ form.username.name|lower }}" id="{{ form.username.id_for_label}}" class="form-control input-lg" placeholder="Логин">
+				</div>
+				<div class="form-group">
+                    {% for error in form.password.errors %}{{ error }}{% endfor %}
+                    <input type="password" required name="{{ form.password.name|lower}}" id="{{ form.password.id_for_label}}" class="form-control input-lg" placeholder="Пароль">
+				</div>
+				<!--span class="button-checkbox">
+					<button type="button" class="btn" data-color="info">Remember Me</button>
+                    <input type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden">
+					<a href="" class="btn btn-link pull-right">Forgot Password?</a>
+				</span-->
+				<hr class="colorgraph">
+				<div class="row">
+					<div class="col-xs-6 col-sm-6 col-md-6">
+                        <input type="submit" class="btn btn-lg btn-success btn-block" value="Вход">
+					</div>
+					<div class="col-xs-6 col-sm-6 col-md-6">
+						<a href="{% url 'account:reg' %}" class="btn btn-lg btn-primary btn-block">Регистрация</a>
+					</div>
+				</div>
+			</fieldset>
+            {% csrf_token %}
+
+		</form>
+	</div>
+</div>
+
+</div>
+    <script>$(function(){
+    $('.button-checkbox').each(function(){
+		var $widget = $(this),
+			$button = $widget.find('button'),
+			$checkbox = $widget.find('input:checkbox'),
+			color = $button.data('color'),
+			settings = {
+					on: {
+						icon: 'glyphicon glyphicon-check'
+					},
+					off: {
+						icon: 'glyphicon glyphicon-unchecked'
+					}
+			};
+
+		$button.on('click', function () {
+			$checkbox.prop('checked', !$checkbox.is(':checked'));
+			$checkbox.triggerHandler('change');
+			updateDisplay();
+		});
+
+		$checkbox.on('change', function () {
+			updateDisplay();
+		});
+
+		function updateDisplay() {
+			var isChecked = $checkbox.is(':checked');
+			// Set the button's state
+			$button.data('state', (isChecked) ? "on" : "off");
+
+			// Set the button's icon
+			$button.find('.state-icon')
+				.removeClass()
+				.addClass('state-icon ' + settings[$button.data('state')].icon);
+
+			// Update the button's color
+			if (isChecked) {
+				$button
+					.removeClass('btn-default')
+					.addClass('btn-' + color + ' active');
+			}
+			else
+			{
+				$button
+					.removeClass('btn-' + color + ' active')
+					.addClass('btn-default');
+			}
+		}
+		function init() {
+			updateDisplay();
+			// Inject the icon if applicable
+			if ($button.find('.state-icon').length == 0) {
+				$button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
+			}
+		}
+		init();
+	});
+});</script>
+{% endblock %}
