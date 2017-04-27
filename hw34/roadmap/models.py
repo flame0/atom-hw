@@ -33,17 +33,22 @@ class Task(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     roadmap = models.ForeignKey(Roadmap, on_delete=models.CASCADE)
 
-    def set_ready(self):
-        if self.state == 'in_progress':
-            self.state = 'ready'
-            max_estimate = Task.objects.all().aggregate(models.Max(models.F('estimate')-models.F('created')))
-            today = timezone.now()
-            points = (today - self.created)/(self.estimate - self.created) + ((self.estimate - self.created)/max_estimate)
+    def set_score(self):
+        max_estimate = Task.objects.all().annotate(maximum=models.Max(models.ExpressionWrapper(
+            models.F('estimate') - models.F('created'),
+            output_field=models.DurationField())))[0]
+        today = timezone.now()
+        points = (today - self.created) / (self.estimate - self.created) + (
+                                                (self.estimate - self.created) / max_estimate.maximum)
+        if not hasattr(self, 'score'):
             self.score = Score.objects.create(task=self, points=points)
-            self.save()
         else:
-            # TODO Наверное нужно сделать какой-нибудь exeption
-            pass
+            self.score.points = points
+
+    def unset_score(self):
+        print(self.score)
+        if self.score is not None:
+            self.score.delete()
 
     @property
     def remaining(self):

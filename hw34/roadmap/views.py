@@ -44,8 +44,12 @@ def task_update(request, pk):
         if request.method == 'POST':
             form = TaskEditForm(request.POST, instance=task)
             if form.is_valid():
-                task = form.save()
-                #msg = 'Task has been edited'
+                task = form.save(commit=False)
+                if task.state == 'ready':
+                    task.set_score()
+                else:
+                    task.unset_score()
+                task.save()
                 return redirect('roadmap:task', pk=task.pk)
         else:
             form = TaskEditForm(instance=task)

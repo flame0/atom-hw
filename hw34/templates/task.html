@@ -6,6 +6,7 @@
 
 	    <p>Task estimate: {{ task.estimate }} </p>
 	    <p>Task state: {{ task.state }} </p>
+	    {% if task.score is not None %}<p>Task points: {{ task.score.points }} </p>{% endif %}
 
 	    <a href="{% url 'roadmap:task_edit' pk=task.pk %}">Edit task</a>
 	</div>
