@@ -49,8 +49,7 @@ class Task(models.Model):
             self.score.points = points
 
     def unset_score(self):
-        print(self.score)
-        if self.score is not None:
+        if hasattr(self, 'score'):
             self.score.delete()
 
     @property
