@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.utils import timezone
 from django.db import models
+from django.db.models import Max, F, DurationField
 from datetime import date, time, timedelta
 from account.models import Account
 
@@ -34,12 +35,14 @@ class Task(models.Model):
     roadmap = models.ForeignKey(Roadmap, on_delete=models.CASCADE)
 
     def set_score(self):
-        max_estimate = Task.objects.all().annotate(maximum=models.Max(models.ExpressionWrapper(
-            models.F('estimate') - models.F('created'),
-            output_field=models.DurationField())))[0]
+        #max_estimate = Task.objects.all().annotate(maximum=models.Max(models.ExpressionWrapper(
+         #   models.F('estimate') - models.F('created'),
+          #  output_field=models.DurationField())))[0]
+        max_estimate = Task.objects.all().aggregate(maximum=Max(F('estimate') - F('created'),
+                                                                  output_field=DurationField()))
         today = timezone.now()
         points = (today - self.created) / (self.estimate - self.created) + (
-                                                (self.estimate - self.created) / max_estimate.maximum)
+                                                (self.estimate - self.created) / max_estimate['maximum'])
         if not hasattr(self, 'score'):
             self.score = Score.objects.create(task=self, points=points)
         else:
@@ -81,3 +84,6 @@ class Score(models.Model):
     task = models.OneToOneField(Task, primary_key=True, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     points = models.DecimalField(max_digits=9, decimal_places=2, default=0)
+
+    def __str__(self):
+        return 'Score for ' + self.task.title
