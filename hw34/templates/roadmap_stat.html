@@ -1,0 +1,46 @@
+{% extends "main.html" %} {%block title%}Roadmaps stats{% endblock %} 
+{%block content%}
+
+<div class="wrapper">
+    <div class="row col-md-offset-2 col-md-8">
+    <div class="row">
+        <h1>Roadmaps Stats</h1>
+        <a class='btn btn-default' href="{%  url 'roadmap:roadmaps' %}">Back to Roadmaps</a>
+    </div>
+    	<h3>Weekly stats</h3>
+        <div class="table-responsive ">
+        	<table class="table table-hover">
+        		<tr class='row'>
+	                <th class='col-md-2'>Week number</a></td>
+	                <th class='col-md-4'>Interval</td>
+	                <th class='col-md-3'>Tasks created</td>
+	                <th class='col-md-3'>Tasks completed</td>
+	            </tr>
+        		{% for week in weeks %}
+	            <tr class='row'>
+	                <td class='col-md-2'>{{ week.number }}</a></td>
+	                <td class='col-md-4'>{{ week.title }}</td>
+	                <td class='col-md-3'>{{ week.tasks_created }}</td>
+	                <td class='col-md-3'>{{ week.tasks_completed }}</td>
+	            </tr>
+         		{% endfor %}
+        	</table>
+		</div>
+		<h3>Monthly stats</h3>
+	    <div class="table-responsive ">
+        	<table class="table table-hover">
+        		<tr class='row'>
+	                <th class='col-md-2'>Month</a></td>
+	                <th class='col-md-4'>Points earned</td>
+	            </tr>
+        		{% for month in months %}
+	            <tr class='row'>
+	                <td class='col-md-2'>{{ month.title }}</a></td>
+	                <td class='col-md-4'>{{ month.points_earned }}</td>
+	            </tr>
+         		{% endfor %}
+        	</table>
+		</div>
+    </div>
+</div>
+{% endblock %}

@@ -16,6 +16,7 @@
 </div><div class="wrapper">
     <div class="row col-md-offset-2 col-md-8">
         <h1>Task list for {{ roadmap.name }}</h1>
+        <p><a class='btn btn-default' href="{%  url 'roadmap:roadmaps' %}">Back to Roadmaps</a></p>
         <p><a class='btn btn-primary' href="{% url 'roadmap:task_new' pk=roadmap.pk %}">Create new task</a></p>
         <div class="table-responsive ">
         	<table class="table table-hover">

@@ -132,7 +132,7 @@ def roadmap_stats(request):
                 points_earned = 0
             month['points_earned'] += points_earned
 
-    return render(request, 'roadmap_stats.html', {'weeks': weeks, 'months': months})
+    return render(request, 'roadmap_stat.html', {'weeks': weeks, 'months': months})
 
 
 
