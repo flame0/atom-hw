@@ -26,6 +26,10 @@
                  {% for error in form.first_name.errors %}{{ error }}{% endfor %}
 				<input type="text" name="{{ form.first_name.html_name }}" id="{{ form.first_name.id_for_label}}" class="form-control input-lg" placeholder="{{ form.first_name.label }}" tabindex="4">
 			</div>
+            <div class="form-group">
+                 {% for error in form.age.errors %}{{ error }}{% endfor %}
+				<input type="text" name="{{ form.age.html_name }}" id="{{ form.age.id_for_label}}" class="form-control input-lg" placeholder="{{ form.age.label }}" tabindex="4">
+			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
