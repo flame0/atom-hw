@@ -3,12 +3,12 @@ from django.utils import timezone
 from django.db import models
 from django.db.models import Max, F, DurationField
 from datetime import date, time, timedelta
-from account.models import Account
+from account.models import User
 
 
 class Roadmap(models.Model):
     name = models.CharField(max_length=100)
-    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def today(self):
         today_tasks = Task.objects.filter(estimate=date.today(), roadmap=self)
@@ -35,9 +35,6 @@ class Task(models.Model):
     roadmap = models.ForeignKey(Roadmap, on_delete=models.CASCADE)
 
     def set_score(self):
-        #max_estimate = Task.objects.all().annotate(maximum=models.Max(models.ExpressionWrapper(
-         #   models.F('estimate') - models.F('created'),
-          #  output_field=models.DurationField())))[0]
         max_estimate = Task.objects.all().aggregate(maximum=Max(F('estimate') - F('created'),
                                                                   output_field=DurationField()))
         today = timezone.now()

@@ -12,3 +12,4 @@ def monday_of_week_one(yyyy):
     MONDAY = REF_DAY - timedelta(days = DOW)
 
     return MONDAY
+

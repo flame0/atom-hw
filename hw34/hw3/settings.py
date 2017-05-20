@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'account',
     'roadmap'
 ]
+AUTH_USER_MODEL = 'account.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
