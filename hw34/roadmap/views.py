@@ -107,7 +107,8 @@ def roadmap_stats(request):
     for roadmap in roadmaps:
         tasks = Task.objects.filter(roadmap=roadmap).count()
         sum_tasks += tasks
-    return render(request, 'roadmap/stat.html', {'sum_score':sum_score,'sum_tasks':sum_tasks})
+    return render(request, 'roadmap/stat.html', {'weeks': stat_dict['weeks'], 'months':stat_dict['months'],
+                                                 'sum_score':sum_score,'sum_tasks':sum_tasks})
 
 
 @login_required(login_url=reverse_lazy('account:login'))

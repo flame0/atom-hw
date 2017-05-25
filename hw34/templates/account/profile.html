@@ -7,5 +7,26 @@
 <li class="active">Профиль</li>
 {% endblock %}
 {% block content %}
+    {% load static %}
+    <div class="main-wrapper" style="margin-top:20px ;">
+        <div class="row col-md-offset-3 col-md-5">
+            <div class="panel info-box panel-white">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-2 ava"><img src="{% static 'img/slide2.png' %}" alt="..." width="150px" height="auto" class="img-rounded"></div>
+                        <div class="col-md-offset-1 col-md-6">
+                            <div class="text-center profile-info">
+                                <div><span class="bold">Имя:</span>{{ user.first_name }}</div>
+                                <div><span class="bold">Фамилия:</span>{{ user.last_name }}</div>
+                                <div><span class="bold">Возраст:</span>{{ user.age }}</div>
+                                <div><span class="bold">Регион:</span>{{ user.region }}</div>
+                                <div><span class="bold">Телефон:</span>{{ user.phone }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+    </div>
 {% endblock %}

@@ -24,7 +24,7 @@
 	            <tr class='row {%if task.is_crit %}danger{% endif %}{% if task.state == "ready" %}success{% endif %}'>
 	                <td class='col-md-4'>
 	                    <a href="{% url 'roadmap:task' pk=task.pk %}">{{ task.title }}</a></td>
-	                <td class='col-md-2'>{{ task.state }}</td>
+	                <td class='col-md-2'>{{ task.get_state_display }}</td>
 	                <td class='col-md-2'>{{ task.estimate }}</td>
 	                <td class='col-md-2'><a  data-href="{% url 'roadmap:task_delete' pk=task.pk %}" data-toggle="modal" data-target="#confirm-delete" href="#">Delete task</a></td>
 	                <td class='col-md-2'>

@@ -9,27 +9,8 @@
 
     <div id="main-wrapper">
         <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="panel info-box panel-white">
-                    <div class="panel-body">
-                        <div class="info-box-stats">
-                            <p class="counter">107,200</p>
-                            <span class="info-box-title">Кол-во критических задач</span>
-                        </div>
-                        <div class="info-box-icon">
-                            <i class="fa fa-user-o" aria-hidden="true"></i>
-                        </div>
-                        <div class="info-box-progress">
-                            <div class="progress progress-xs progress-squared bs-n">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
+
+            <div class="col-md-offset-2 col-lg-3 col-md-6">
                 <div class="panel info-box panel-white">
                     <div class="panel-body">
                         <div class="info-box-stats">
@@ -53,7 +34,7 @@
                 <div class="panel info-box panel-white">
                     <div class="panel-body">
                         <div class="info-box-stats">
-                            <p><span class="counter">{{ sum_score}}</span></p>
+                            <p><span class="counter">{{ sum_score }}</span></p>
                             <span class="info-box-title">Сумарное кол-во очков</span>
                         </div>
                         <div class="info-box-icon">
@@ -91,25 +72,49 @@
             </div>
         </div>
         <!-- Row -->
-        <div class="row">
-            <div class="col-sm-8">
-                <div class="panel panel-white">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">Прогресс</h4>
-                    </div>
-                    <div class="panel-body">
-                        <canvas id="profit-chart"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="panel panel-white">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">Ваши контракты</h4>
-                    </div>
-                    <div class="panel-body">
 
-                        <canvas id="doughnut-chart"></canvas>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-8">
+                <div class="panel info-box panel-white">
+                    <h3>Weekly stats</h3>
+                    <div class="table-responsive ">
+                        <table class="table table-hover">
+                            <tr class='row'>
+                                <th class='col-md-2'>Week number
+                                </td>
+                                <th class='col-md-4'>Interval
+                                </td>
+                                <th class='col-md-3'>Tasks created
+                                </td>
+                                <th class='col-md-3'>Tasks completed
+                                </td>
+                            </tr>
+                            {% for week in weeks %}
+                                <tr class='row'>
+                                    <td class='col-md-2'>{{ week.number }}</td>
+                                    <td class='col-md-4'>{{ week.title }}</td>
+                                    <td class='col-md-3'>{{ week.tasks_created }}</td>
+                                    <td class='col-md-3'>{{ week.tasks_completed }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <h3>Monthly stats</h3>
+                    <div class="table-responsive ">
+                        <table class="table table-hover">
+                            <tr class='row'>
+                                <th class='col-md-2'>Month</a>
+                                </td>
+                                <th class='col-md-4'>Points earned
+                                </td>
+                            </tr>
+                            {% for month in months %}
+                                <tr class='row'>
+                                    <td class='col-md-2'>{{ month.title }}</a></td>
+                                    <td class='col-md-4'>{{ month.points_earned }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
                     </div>
                 </div>
             </div>

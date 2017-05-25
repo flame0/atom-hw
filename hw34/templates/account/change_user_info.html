@@ -1,4 +1,4 @@
-{% extends "account/base.html" %} {% block title %}Настройки {{ task.pk }}{% endblock %}
+{% extends "account/base.html" %} {% block title %}Настройки{% endblock %}
 {% block page-title %}
     Сменить информацию
 {% endblock %}
@@ -15,6 +15,7 @@
                             {{ form.as_p }}
                             <input type="submit" value="Update"/>
                         </form>
+                        <a href="{% url 'account:change_pass' %}">Смена пароля</a>
                     </div>
                 </div>
             </div>

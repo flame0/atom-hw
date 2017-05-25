@@ -468,4 +468,6 @@ a:focus, a:hover {
 .spark {
   display: inline; }
 
-/*# sourceMappingURL=main.css.map */
+span.bold{
+  font-weight:bold;
+}

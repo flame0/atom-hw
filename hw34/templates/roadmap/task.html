@@ -4,7 +4,7 @@
     <div class="row col-md-offset-2 col-md-8">
 		<h1{%if task.is_crit %} style="color:red;"{%endif%}>{{ task.title }}</h1>
 	    <p>Task estimate: {{ task.estimate }} </p>
-	    <p>Task state: {{ task.state }} </p>
+	    <p>Task state: {{ task.get_state_display }} </p>
 	    {% if task.score %}<p>Task points: {{ task.score.points }} </p>{% endif %}
 
 	    <a href="{% url 'roadmap:task_edit' pk=task.pk %}">Edit task</a>
