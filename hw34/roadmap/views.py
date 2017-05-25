@@ -1,18 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
-from django.http import HttpResponseForbidden
 from django.core.exceptions import PermissionDenied
 from django.db import models
 
-from account.models import User
 from .models import Task, Roadmap, Score
 from .forms import TaskForm, TaskEditForm, RoadmapForm
 
-from datetime import date, datetime, timedelta
-from calendar import monthrange
-from .utils import monday_of_week_one
-from .utils import monday_of_week_one, stats
+from .utils import stats
 
 
 @login_required(login_url=reverse_lazy('account:login'))
@@ -35,7 +30,7 @@ def task_new(request, pk):
                 task = form.save(commit=False)
                 task.roadmap = roadmap
                 task.save()
-                return redirect('roadmap:task', pk = task.pk)
+                return redirect('roadmap:task', pk=task.pk)
         else:
             form = TaskForm()
         return render(request, 'roadmap/task_edit.html', {'form': form, 'action': action})
@@ -44,6 +39,7 @@ def task_new(request, pk):
 
 @login_required(login_url=reverse_lazy('account:login'))
 def task_update(request, pk):
+    import ipdb; ipdb.set_trace()
     task = get_object_or_404(Task, pk=pk)
     action = 'Update'
     if request.user == task.roadmap.user:
@@ -97,18 +93,18 @@ def roadmap_stats(request):
 
     sum_score = 0
     for roadmap in roadmaps:
-            scores = Score.objects.filter(task__roadmap=roadmap)
-            points_earned = scores.aggregate(models.Sum('points'))['points__sum']
-            if points_earned is None:
-                points_earned = 0
-            sum_score += points_earned
+        scores = Score.objects.filter(task__roadmap=roadmap)
+        points_earned = scores.aggregate(models.Sum('points'))['points__sum']
+        if points_earned is None:
+            points_earned = 0
+        sum_score += points_earned
 
     sum_tasks = 0
     for roadmap in roadmaps:
         tasks = Task.objects.filter(roadmap=roadmap).count()
         sum_tasks += tasks
-    return render(request, 'roadmap/stat.html', {'weeks': stat_dict['weeks'], 'months':stat_dict['months'],
-                                                 'sum_score':sum_score,'sum_tasks':sum_tasks})
+    return render(request, 'roadmap/stat.html', {'weeks': stat_dict['weeks'], 'months': stat_dict['months'],
+                                                 'sum_score': sum_score, 'sum_tasks': sum_tasks})
 
 
 @login_required(login_url=reverse_lazy('account:login'))
@@ -131,5 +127,5 @@ def roadmap_delete(request, pk):
     if roadmap.user == request.user:
         roadmap.delete()
     else:
-         raise PermissionDenied
+        raise PermissionDenied
     return redirect('roadmap:roadmaps')

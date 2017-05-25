@@ -32,4 +32,4 @@ class UserCreationForm(forms.ModelForm):
 class UserChangeForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'phone', 'age')
+        fields = ('first_name', 'last_name', 'email', 'phone', 'age', 'region')

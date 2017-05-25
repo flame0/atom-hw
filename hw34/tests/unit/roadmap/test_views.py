@@ -1,17 +1,17 @@
 import pytest
 import pytz
+import datetime
+
 from django.test import RequestFactory
 from django.contrib.auth.models import AnonymousUser
 from mixer.backend.django import mixer
 from roadmap import views
 from account.models import User
-from roadmap.models import Task, Roadmap, Score
-from datetime import datetime
-from roadmap.forms import TaskForm, TaskEditForm, RoadmapForm
-
+from roadmap.models import Task, Roadmap
 
 pytestmark = pytest.mark.django_db
 utc = pytz.UTC
+
 
 class TestRoadmapViews:
     @pytest.fixture
@@ -92,26 +92,13 @@ class TestRoadmapViews:
         request.user = user
         response = views.roadmap_stats(request)
         assert response.status_code == 200
-"""
-    def test_task_update_post(self, task, user):
-        data = {'title': 'tested', 'estimate': datetime(2100, 1, 1, tzinfo=utc), 'state': 'in_progress'}
 
+    def test_task_update_post(self, task, user):
+        data = {'title': 'tested', 'estimate': datetime.datetime(2100, 1, 1, tzinfo=utc), 'state': 'in_progress'}
         request = RequestFactory().post('/task/' + str(task.id) + '/edit/', data=data)
         request.user = user
-        form = TaskEditForm(data, instance=task)
+        request.method = 'POST'
         response = views.task_update(request, task.id)
-        assert form.is_valid()
-
         assert response.status_code == 200
         task.refresh_from_db()
-        #assert task.title == 'tested'"""
-
-
-
-
-
-
-
-
-
 
