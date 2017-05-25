@@ -1,12 +1,11 @@
-{% extends "main.html" %} {%block title%}Профиль {% endblock %}
-
+{% extends 'account/base.html' %}
+{% block title %}
+Профиль пользователя
+{% endblock %}
+{% block page-title %}Информация о пользователе{% endblock %}
+{% block path %}
+<li class="active">Профиль</li>
+{% endblock %}
 {% block content %}
-<div class="container">
-<div class="row" style="margin-top:20px">
-    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-ЭТО ПРОФИЛЬ
-	</div>
-</div>
 
-</div>
 {% endblock %}

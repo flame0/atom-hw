@@ -1,0 +1,67 @@
+#logo img {
+    margin: 0 10px 0 0;
+    max-height: 61px;
+    vertical-align: middle;
+}
+.header-inner{
+    padding: 20px;
+
+}
+.header-inner ul li a{
+    color: #fff;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: transparent;
+    opacity: 0.7;
+}
+#banner {
+    background: url(http://demos.shapingrain.com/inbound/wp-content/uploads/sites/18/2017/01/bg-software.jpg) no-repeat center top;
+}
+.banner-content{
+    color:white;
+}
+.banner-content h1{
+    font-family: Roboto,sans-serif,Arial,Helvetica;
+    font-size: 54px;
+    font-weight: 300;
+    font-style: normal;
+    color: #fff;
+}
+
+ #banner .btn-success {
+    margin-top: 10px;
+    padding: 14px 30px;
+}
+ .devide{
+     border-top: 3px solid #fff;
+    width: 50px;
+     margin-left: auto;
+    margin-right: auto;
+         display: block;
+    position: relative;
+    clear: both;
+    height: 0;
+ }
+ .note-wrapper{
+     margin-top:50px;
+ }
+.how .icon {
+    margin-bottom: 20px;
+}
+.how img {
+    max-height: 128px;
+}
+footer {
+    margin-top: 50px;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #f5f5f5;
+}
+footer li{
+    padding:20px;
+}
+footer ul{
+    margin-bottom: 0;
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Task Tracker - Techatom project{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'profile.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="page-header-fixed  pace-done">
+<div class="page-content">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="sidebar-pusher">
+                <a href="javascript:void(0);" class="waves-effect waves-button waves-classic push-sidebar">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+            <div class="logo-box">
+                <a href="{% url 'index' %}" class="logo-text"><span>TECHATOM</span></a>
+            </div><!-- Logo Box -->
+            <div class="topmenu-outer">
+                <div class="top-menu">
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li>
+                            <a href="{% url 'account:logout' %}"
+                               class="log-out waves-effect waves-button waves-classic">
+                                <span><i class="fa fa-sign-out m-r-xs"></i>Выход</span>
+                            </a>
+                        </li>
+
+                    </ul><!-- Nav -->
+                </div><!-- Top Menu -->
+            </div>
+        </div>
+    </div>
+    <div class="page-sidebar sidebar">
+        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;">
+            <div class="page-sidebar-inner slimscroll" style="overflow: hidden; width: auto; height: 100%;">
+                <div class="sidebar-header">
+                    <div class="sidebar-profile">
+                        <a href="javascript:void(0);" id="profile-menu-link">
+                            <div class="sidebar-profile-image">
+                                <img src="{% static 'img/profile-menu-image.png' %}" class="img-circle img-responsive"
+                                     alt="">
+                            </div>
+                            <div class="sidebar-profile-details">
+                                <span>{{ user.get_full_name }}<br><small>{{ user.phone }}</small></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <ul class="menu accordion-menu">
+                    <li><a href="{% url 'roadmap:roadmap_stats' %}" class="waves-effect waves-button"><span
+                            class="menu-icon glyphicon glyphicon-cloud"></span>
+                        <p>Статистика</p></a></li>
+                    <li><a href="{% url 'account:profile' %}" class="waves-effect waves-button"><span
+                            class="menu-icon glyphicon glyphicon-user"></span>
+                        <p>Профиль</p></a></li>
+                    <li><a href="{% url 'roadmap:roadmaps' %}" class="waves-effect waves-button"><span
+                            class="menu-icon glyphicon glyphicon-road"></span>
+                        <p>Roadmaps</p></a></li>
+                    <li><a href="{% url 'account:settings' %}" class="waves-effect waves-button"><span
+                            class="menu-icon glyphicon glyphicon-cog"></span>
+                        <p>Настройки</p></a></li>
+                </ul>
+            </div>
+        </div><!-- Page Sidebar Inner -->
+    </div>
+    <div class="page-inner" style="min-height:1256px !important">
+        <div class="page-title">
+            <h3>{% block page-title %}{% endblock %}</h3>
+            <div class="page-breadcrumb">
+                <ol class="breadcrumb">
+                    <li><a href="{% url 'index' %}">Главная</a></li>
+                    {% block path %}<li class="active"></li>{% endblock %}
+                </ol>
+            </div>
+        </div>
+        {% block content %}
+
+        {% endblock %}
+        <!-- Main Wrapper -->
+        <div class="page-footer">
+            <p class="no-s">2017 © TASK TRACKER.</p>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/libs.min.js' %}"></script>
+
+</body>
+</html>

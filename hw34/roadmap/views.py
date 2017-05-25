@@ -12,13 +12,14 @@ from .forms import TaskForm, TaskEditForm, RoadmapForm
 from datetime import date, datetime, timedelta
 from calendar import monthrange
 from .utils import monday_of_week_one
+from .utils import monday_of_week_one, stats
 
 
 @login_required(login_url=reverse_lazy('account:login'))
 def task_detail(request, pk):
     task = get_object_or_404(Task, pk=pk)
     if request.user == task.roadmap.user:
-        return render(request, 'task.html', {'task': task})
+        return render(request, 'roadmap/task.html', {'task': task})
     else:
         raise PermissionDenied
 
@@ -37,7 +38,7 @@ def task_new(request, pk):
                 return redirect('roadmap:task', pk = task.pk)
         else:
             form = TaskForm()
-        return render(request, 'task_edit.html', {'form': form, 'action': action})
+        return render(request, 'roadmap/task_edit.html', {'form': form, 'action': action})
     raise PermissionDenied
 
 
@@ -58,7 +59,7 @@ def task_update(request, pk):
                 return redirect('roadmap:task', pk=task.pk)
         else:
             form = TaskEditForm(instance=task)
-        return render(request, 'task_edit.html', {'form': form, 'action': action})
+        return render(request, 'roadmap/task_edit.html', {'form': form, 'action': action})
     raise PermissionDenied
 
 
@@ -76,7 +77,7 @@ def task_delete(request, pk):
 def roadmaps_show(request):
     user = request.user
     roadmaps = user.roadmap_set.all()
-    return render(request, 'roadmaps.html', {'roadmaps': roadmaps})
+    return render(request, 'roadmap/roadmaps.html', {'roadmaps': roadmaps})
 
 
 @login_required(login_url=reverse_lazy('account:login'))
@@ -84,56 +85,29 @@ def roadmap_detail(request, pk):
     roadmap = get_object_or_404(Roadmap, pk=pk)
     if roadmap.user == request.user:
         tasks = Task.objects.filter(roadmap=roadmap).order_by('state', 'estimate')
-        return render(request, 'roadmap_detail.html', {'roadmap': roadmap, 'tasks': tasks})
+        return render(request, 'roadmap/roadmap_detail.html', {'roadmap': roadmap, 'tasks': tasks})
     raise PermissionDenied
+
 
 @login_required(login_url=reverse_lazy('account:login'))
 def roadmap_stats(request):
     user = request.user
     roadmaps = user.roadmap_set.all()
+    stat_dict = stats(roadmaps)
 
-    weeks = []
-    cur_month = datetime.now().month
-    cur_year = datetime.now().year
-    init_date = monday_of_week_one(cur_year)
-    for i in range(0, 52):
-        from_date = init_date
-        to_date = init_date + timedelta(days=6)
-        title = from_date.strftime("%Y-%m-%d") + ' / ' + to_date.strftime("%Y-%m-%d")
-        weeks.append({'from_date': from_date,
-                    'to_date':     to_date,
-                    'tasks_completed': 0,
-                    'tasks_created':   0,
-                    'title': title,
-                    'number': i+1})
-        init_date = init_date + timedelta(days=7)
+    sum_score = 0
     for roadmap in roadmaps:
-        for week in weeks:
-            tasks_created = roadmap.task_set.filter(created__range=(week['from_date'], week['to_date']))
-            tasks_completed = roadmap.task_set.filter(score__date__range=(week['from_date'], week['to_date']))
-            week['tasks_created'] += tasks_created.count()
-            week['tasks_completed'] += tasks_completed.count()
-
-    months = []
-    init_date = monday_of_week_one(datetime.now().year)
-    for i in range(1,13):
-        from_date = datetime(cur_year, i, 1)
-        to_date = datetime(cur_year, i, monthrange(cur_year, i)[1])
-        months.append({ 'from_date': from_date,
-                        'to_date':   to_date,
-                        'title':     from_date.strftime("%Y-%m"),
-                        'points_earned': 0})
-
-    for roadmap in roadmaps:
-        for month in months:
-            scores = Score.objects.filter(task__roadmap=roadmap, date__range=(month['from_date'], month['to_date']))
+            scores = Score.objects.filter(task__roadmap=roadmap)
             points_earned = scores.aggregate(models.Sum('points'))['points__sum']
             if points_earned is None:
                 points_earned = 0
-            month['points_earned'] += points_earned
+            sum_score += points_earned
 
-    return render(request, 'roadmap_stat.html', {'weeks': weeks, 'months': months})
-
+    sum_tasks = 0
+    for roadmap in roadmaps:
+        tasks = Task.objects.filter(roadmap=roadmap).count()
+        sum_tasks += tasks
+    return render(request, 'roadmap/stat.html', {'sum_score':sum_score,'sum_tasks':sum_tasks})
 
 
 @login_required(login_url=reverse_lazy('account:login'))
@@ -147,7 +121,7 @@ def roadmap_new(request):
             return redirect('roadmap:roadmaps')
     else:
         form = RoadmapForm()
-    return render(request, 'roadmap_new.html', {'form': form})
+    return render(request, 'roadmap/roadmap_new.html', {'form': form})
 
 
 @login_required(login_url=reverse_lazy('account:login'))

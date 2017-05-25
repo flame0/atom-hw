@@ -59,7 +59,7 @@ class LoginFormView(FormView):
     template_name = "account/login.html"
 
     # В случае успеха перенаправим на главную.
-    success_url = reverse_lazy('roadmap:roadmaps')
+    success_url = reverse_lazy('account:profile')
 
     def form_valid(self, form):
         # Получаем объект пользователя на основе введённых в форму данных.

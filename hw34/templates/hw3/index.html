@@ -1,71 +1,116 @@
- {% extends "../main.html" %}
-{%block title%}Task tracker for techatom{%endblock%}
- {% block content%}   <div class="col-md-12">
-
-      <div class="start-title col-md-12" id="about">
-        <div class="jumbotron col-md-6 col-md-offset-3">
-        	<h2>Техноатом Домашнее Задание</h2>
-        	<p class="lead">Данный проект содержит домашнее задание №3-4-5-6-7</p>
-        	<div class="text-center">
-                <div class="btn-group">
-                    <div class="row">
-                        <div class="col-md-4"><a href="{% url 'account:login' %}"  class="btn btn-success btn-lg" role="button">Вход</a></div>
-                        <div class="col-md-4"><a href="{% url 'account:reg' %}" class="btn btn-primary btn-lg" role="button">Регистрация</a></div>
-                    </div>
+<!doctype html>
+<html lang="ru">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TASK TRACKER - ПРОЕКТ ТЕХНОАТОМА</title>
+    <link rel="shortcut icon" href="https://cdn.auth0.com/styleguide/components/1.0.8/media/logos/img/favicon.png">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'land.css' %}">
+</head>
+<body>
+<div id="banner">
+    <div class="header-wrapper">
+        <div class="header-inner">
+            <div class="row">
+                <div id="logo" class="col-md-3">
+                    <a href="http://demos.shapingrain.com/inbound/" rel="home">
+                        <img src="http://demos.shapingrain.com/inbound/wp-content/uploads/sites/18/inbound_exports/inbound-software-925/inbound-logo.png"
+                             alt="Inbound" title="Inbound" class="logo-primary">
+                    </a>
                 </div>
-					<!--div class="btn-group">
-					  <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>Roadmap
-					    <span class="caret"></span>
-					    
-					    <span class="sr-only">Toggle Dropdown</span>
-					  </button>
-					  <ul class="dropdown-menu">
-					    <li><a href="{%url 'roadmap:roadmap_new' %}">Новый roadmap</a></li>
-					    <li><a href="{%url 'roadmap:roadmaps' %}">Список roadmap</a></li>
-					  </ul>
-					</div-->
-			</div>
-     	 </div>
-      </div>
-		
-		<div class="contact" id="contact">
-			<div class="col-md-3 col-md-offset-3 profile text-center">
-				<div class="panel panel-info">
-  					<div class="panel-heading">
-  						<div class="name">
-							<h3>Андрей Ли</h3>
-						</div>
-					</div>
-					<div class="panel-body">
-					    <div class="photo">
-					        <a href="https://atom.mail.ru/profile/a.li/" target="_blank"><img src="https://habrastorage.org/getpro/moikrug/uploads/user/100/011/806/5/avatar/medium_9f360c5ab7736510df54c882e9dbf188.jpeg" alt="photo of andrew lee" class="src"></a>
-					    </div>
-					    <div class="link">
-					        <a class="btn btn-success" href="https://github.com/flame0/" target="_blank">github.com/flame0</a>
-					    </div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 profile text-center">
-			<div class="panel panel-info">
-  					<div class="panel-heading">
-  						<div class="name">
-							<h3>Виктор Леденев</h3>
-						</div>
-					</div>
-					<div class="panel-body">
-					    <div class="photo">
-							<a href="https://atom.mail.ru/profile/vi.ledenyov/" target="_blank"><img src="https://avatars1.githubusercontent.com/u/17030168?v=3&s=460" width=200 alt="photo of victor" class="src"></a>
-						</div>
-					    <div class="link">
-							
-							<a  class="btn btn-success" href="https://github.com/roachsc4/" target="_blank">github.com/roachsc4</a>
-						</div>
-					</div>
-				</div>
-				
-				
-			</div>
-		</div>
-    </div><!-- /.container -->
-{% endblock %}
+                <div class="nav-wrapper clearfix col-md-offset-4 col-md-5">
+                    <ul class="nav navbar-nav pull-right">
+                        <li><a href="#adv">Возможности</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                        <li><a href="{% url 'account:login' %}">Вход</a></li>
+                        <li><a href="{% url 'account:reg' %}">Регистрация</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="banner-content container">
+        <div class="row">
+            <div class="top text-center">
+                <h1>Менеджер задач</h1>
+                <hr class="devide">
+                <h3>Лучший способ управлениями процессами и задачами</h3>
+                <a href="{% url 'account:reg' %}" class="btn btn-success btn-lg">
+                    <div>Регистрация</div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="note-wrapper">
+                <div class="note">
+                    <img class="img-responsive"
+                         src="http://demos.shapingrain.com/inbound/wp-content/uploads/sites/18/inbound_exports/inbound-software-925/software-laptop.png"
+                         alt="software-laptop">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main">
+    <div class="container how" id="adv">
+        <div class="row">
+            <hr class="devide" style="border-color: darkorange;">
+            <div class="col-md-12 text-center">
+                <h2 class="title">Возможности</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <div  class="icon"><img
+                        src="http://demos.shapingrain.com/inbound/wp-content/uploads/sites/18/inbound_exports/inbound-software-925/software-icon-1-1.png"
+                        alt="Connect with your customers"></div>
+                <h4>Облачная платформа</h4>
+                <p>Сохраняй свои задачи на одном устройстве, смотри с любого, с технологией облачного хранения
+                    данных</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="icon"><img
+                        src="http://demos.shapingrain.com/inbound/wp-content/uploads/sites/18/inbound_exports/inbound-software-925/software-icon-2-1.png"
+                        alt="Connect with your customers"></div>
+                <h4>Детальная статистика</h4>
+                <p>Статистика и Графики выполнения всех задач и карт. Интуитивная возможность управления данными</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="icon"><img
+                        src="http://demos.shapingrain.com/inbound/wp-content/uploads/sites/18/inbound_exports/inbound-software-925/software-icon-3-1.png"
+                        alt="Connect with your customers"></div>
+                <h4>Удобный интерфейс</h4>
+                <p>Приятный способ управления задачами на любом устройсте</p>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-offset-5 col-md-2">
+                <a href="{% url 'account:reg' %}" class="btn btn-warning" style="padding:20px;margin-top:40px;">Начать
+                    пользоваться</a>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="clearfix">
+    <div class="container">
+        <div class="row">
+            <ul class="list-unstyled">
+                <li class="list-item"><a href="">Правила</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

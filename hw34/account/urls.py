@@ -7,7 +7,7 @@ urlpatterns = [
     url(r'^login/$', LoginFormView.as_view(), name='login'),
     url(r'^signup/$', RegisterFormView.as_view(), name='reg'),
     url(r'^password/$', change_password, name='change_pass'),
-    url(r'^change-info/$', UserChangeFormView.as_view(), name='change_user'),
+    url(r'^settings/$', UserChangeFormView.as_view(), name='settings'),
     url(r'^logout/$', LogoutView.as_view(), name='logout'),
     url(r'^$', profile_view, name='profile'),
 

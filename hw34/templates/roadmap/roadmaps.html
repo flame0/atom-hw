@@ -1,0 +1,63 @@
+{% extends "account/base.html" %} {% block title %}Roadmap list{% endblock %}
+{% block page-title %}
+    Список дорожных карт
+{% endblock %}
+{% block path %}
+    <li class="active">Roadmaps</li>
+{% endblock %}
+{% block content %}
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <h3>Вы действительно хотите удалить этот roadmap?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
+                    <a class="btn btn-danger btn-ok">Да</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-wrapper" style="margin-top:20px ;">
+        <div class="row col-md-offset-2 col-md-8">
+            <div class="panel info-box panel-white">
+                <div class="panel-body">
+
+
+                    <p><a class='btn btn-primary' href="{% url 'roadmap:roadmap_new' %}">Create new Roadmap</a></p>
+                    <div class="table-responsive ">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Дорожная карта</th>
+                                <th>Количество заданий</th>
+                                <th>Действие</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for roadmap in roadmaps %}
+                                <tr>
+                                    <td class='col-md-1' scope="row"> {{ forloop.counter }}</td>
+                                    <td class='col-md-7'><a
+                                            href="{% url 'roadmap:roadmap' pk=roadmap.pk %}">{{ roadmap.name }}</a></td>
+                                    <td class='col-md-2'>{{ roadmap.task_set.all.count }}</td>
+                                    <td class='col-md-2'><a data-href="{% url 'roadmap:roadmap_delete' pk=roadmap.pk %}"
+                                                            data-toggle="modal" data-target="#confirm-delete" href="#">Delete
+                                        Roadmap</a></td>
+                                </tr>
+                            {% endfor %}</tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>$('#confirm-delete').on('show.bs.modal', function (e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+    });</script>
+{% endblock %}

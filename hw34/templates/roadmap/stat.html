@@ -1,0 +1,118 @@
+{% extends "account/base.html" %} {% block title %}Статистика по заданиям{% endblock %}
+{% block page-title %}
+    Статистическая информация
+{% endblock %}
+{% block path %}
+    <li class="active">Статистика</li>
+{% endblock %}
+{% block content %}
+
+    <div id="main-wrapper">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="panel info-box panel-white">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p class="counter">107,200</p>
+                            <span class="info-box-title">Кол-во критических задач</span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-user-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="info-box-progress">
+                            <div class="progress progress-xs progress-squared bs-n">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel info-box panel-white">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p class="counter">{{ sum_tasks }}</p>
+                            <span class="info-box-title">Общее кол-во задач</span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                        </div>
+                        <div class="info-box-progress">
+                            <div class="progress progress-xs progress-squared bs-n">
+                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel info-box panel-white">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p><span class="counter">{{ sum_score}}</span></p>
+                            <span class="info-box-title">Сумарное кол-во очков</span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </div>
+                        <div class="info-box-progress">
+                            <div class="progress progress-xs progress-squared bs-n">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel info-box panel-white">
+                    <div class="panel-body">
+                        <div class="info-box-stats">
+                            <p class="counter">{{ user.roadmap_set.all.count }}</p>
+                            <span class="info-box-title">Кол-во дорожных карт</span>
+                        </div>
+                        <div class="info-box-icon">
+                            <i class="fa fa-usd" aria-hidden="true"></i>
+                        </div>
+                        <div class="info-box-progress">
+                            <div class="progress progress-xs progress-squared bs-n">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50"
+                                     aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row -->
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="panel panel-white">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Прогресс</h4>
+                    </div>
+                    <div class="panel-body">
+                        <canvas id="profit-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-white">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Ваши контракты</h4>
+                    </div>
+                    <div class="panel-body">
+
+                        <canvas id="doughnut-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
